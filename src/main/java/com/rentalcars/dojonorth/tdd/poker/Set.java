@@ -1,7 +1,7 @@
 package com.rentalcars.dojonorth.tdd.poker;
 
 public enum Set {
-    PAIR(1), THREE_OF_A_KIND(2);
+    NOTHING(0), PAIR(1), THREE_OF_A_KIND(2);
 
     private final int priority;
 

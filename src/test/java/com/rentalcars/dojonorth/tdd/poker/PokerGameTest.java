@@ -21,4 +21,10 @@ public class PokerGameTest {
         Hand hand = new Hand(Arrays.asList("2H", "2D", "2C", "3D", "4H"));
         assertThat(hand.evaluateBestHand(), is(THREE_OF_A_KIND));
     }
+
+    @Test
+    public void nothingInHandIfNoHand() throws Exception {
+        Hand hand = new Hand(Arrays.asList("2H", "4D", "6S", "7C", "JH"));
+        assertThat(hand.evaluateBestHand(), is(NOTHING));
+    }
 }

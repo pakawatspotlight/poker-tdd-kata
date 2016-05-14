@@ -49,7 +49,7 @@ public class Hand {
         }
 
         Iterator<Set> handsIter = hands.iterator();
-        Set bestHand = null;
+        Set bestHand = Set.NOTHING;
         while (handsIter.hasNext()) {
             bestHand = handsIter.next();
         }
