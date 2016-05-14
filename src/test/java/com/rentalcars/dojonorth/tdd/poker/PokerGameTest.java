@@ -29,6 +29,12 @@ public class PokerGameTest {
     }
 
     @Test
+    public void fullHouse() throws Exception {
+        Hand hand = new Hand(Arrays.asList("KH", "KS", "KC", "JH", "JD"));
+        assertThat(hand.evaluateBestHand(), is(FULL_HOUSE));
+    }
+
+    @Test
     public void nothingInHand() throws Exception {
         Hand hand = new Hand(Arrays.asList("2H", "4D", "6S", "7C", "JH"));
         assertThat(hand.evaluateBestHand(), is(NOTHING));

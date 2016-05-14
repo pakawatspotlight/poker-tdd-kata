@@ -42,9 +42,23 @@ public class Hand {
     private Set evaluateBestHand(final java.util.Set<Set> hands) {
         Iterator<Set> handsIter = hands.iterator();
         Set bestHand = Set.NOTHING;
+
+        boolean handHasPair = false,
+                handHasThreeOfAKind = false;
         while (handsIter.hasNext()) {
-            bestHand = handsIter.next();
+            Set currentHand = handsIter.next();
+            bestHand = currentHand;
+            if (currentHand.equals(PAIR)) {
+                handHasPair = true;
+            } else if (currentHand.equals(THREE_OF_A_KIND)) {
+                handHasThreeOfAKind = true;
+            }
         }
+
+        if (handHasPair && handHasThreeOfAKind) {
+            return Set.FULL_HOUSE;
+        }
+
         return bestHand;
     }
 }
