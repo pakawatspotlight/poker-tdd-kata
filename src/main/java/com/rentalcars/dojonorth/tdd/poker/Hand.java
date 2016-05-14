@@ -1,7 +1,5 @@
 package com.rentalcars.dojonorth.tdd.poker;
 
-import com.sun.javafx.collections.UnmodifiableListSet;
-
 import java.util.*;
 
 import static com.rentalcars.dojonorth.tdd.poker.Set.PAIR;
@@ -18,14 +16,13 @@ public class Hand {
     }
 
     public Set evaluateBestHand() {
-        Set set = null;
-        int noOfTypes = 0;
-        Map handMap = new HashMap<String, Integer>();
+        Map handMap = mapOfHand();
+        java.util.Set<Set> hands = evaluateSetsInHand(handMap);
+        return evaluateBestHand(hands);
+    }
 
-        // Creates a map e.g.
-        // 2, 2
-        // 3, 1
-        // 4, 0
+    private Map mapOfHand() {
+        Map handMap = new HashMap<String, Integer>();
         for (String card : cards) {
             String type = card.substring(0, 1);
             Integer currentTypeCount = (Integer) handMap.get(type);
@@ -35,7 +32,19 @@ public class Hand {
             currentTypeCount = currentTypeCount + 1;
             handMap.put(type, currentTypeCount);
         }
+        return handMap;
+    }
 
+    private Set evaluateBestHand(java.util.Set<Set> hands) {
+        Iterator<Set> handsIter = hands.iterator();
+        Set bestHand = Set.NOTHING;
+        while (handsIter.hasNext()) {
+            bestHand = handsIter.next();
+        }
+        return bestHand;
+    }
+
+    private java.util.Set<Set> evaluateSetsInHand(Map handMap) {
         Iterator<String> handMapIter = handMap.keySet().iterator();
         java.util.Set<Set> hands = new LinkedHashSet<Set>();
         while (handMapIter.hasNext()) {
@@ -47,14 +56,7 @@ public class Hand {
                 hands.add(THREE_OF_A_KIND);
             }
         }
-
-        Iterator<Set> handsIter = hands.iterator();
-        Set bestHand = Set.NOTHING;
-        while (handsIter.hasNext()) {
-            bestHand = handsIter.next();
-        }
-
-        return bestHand;
+        return hands;
     }
 }
 

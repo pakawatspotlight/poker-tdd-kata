@@ -17,7 +17,7 @@ public class PokerGameTest {
     }
     
     @Test
-    public void threeTwosIsThreeOfAKind() throws Exception {
+    public void threeTwosIsAThreeOfAKind() throws Exception {
         Hand hand = new Hand(Arrays.asList("2H", "2D", "2C", "3D", "4H"));
         assertThat(hand.evaluateBestHand(), is(THREE_OF_A_KIND));
     }
