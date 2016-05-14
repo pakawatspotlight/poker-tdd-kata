@@ -10,16 +10,19 @@ import static com.rentalcars.dojonorth.tdd.poker.Set.THREE_OF_A_KIND;
  * Created by jamesmurphy on 12/05/2016.
  */
 public class Hand {
-    private final List<String> cards;
+    private List<String> cards = new ArrayList<String>();
 
-    public Hand(List<String> cards) {
+    private Hands hands;
+
+    public Hand(final List<String> cards) {
+        hands = new Hands();
         this.cards = cards;
     }
 
     public Set evaluateBestHand() {
         Map handMap = mapOfHand();
-        java.util.Set<Set> hands = evaluateSetsInHand(handMap);
-        return evaluateBestHand(hands);
+        java.util.Set<Set> potentialHands = hands.evaluateSets(handMap);
+        return evaluateBestHand(potentialHands);
     }
 
     private Map mapOfHand() {
@@ -36,32 +39,13 @@ public class Hand {
         return handMap;
     }
 
-    private Set evaluateBestHand(java.util.Set<Set> hands) {
+    private Set evaluateBestHand(final java.util.Set<Set> hands) {
         Iterator<Set> handsIter = hands.iterator();
         Set bestHand = Set.NOTHING;
         while (handsIter.hasNext()) {
             bestHand = handsIter.next();
         }
         return bestHand;
-    }
-
-    private java.util.Set<Set> evaluateSetsInHand(Map handMap) {
-        Iterator<String> handMapIter = handMap.keySet().iterator();
-        java.util.Set<Set> hands = new LinkedHashSet<Set>();
-        while (handMapIter.hasNext()) {
-            String type = handMapIter.next();
-            if ((Integer) handMap.get(type) == 2) {
-                hands.add(PAIR);
-            }
-            if ((Integer) handMap.get(type) == 4) {
-                hands.add(FOUR_OF_A_KIND);
-            }
-            if ((Integer) handMap.get(type) == 3) {
-                hands.add(THREE_OF_A_KIND);
-            }
-
-        }
-        return hands;
     }
 }
 
