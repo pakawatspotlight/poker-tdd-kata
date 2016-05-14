@@ -2,6 +2,7 @@ package com.rentalcars.dojonorth.tdd.poker;
 
 import java.util.*;
 
+import static com.rentalcars.dojonorth.tdd.poker.Set.FOUR_OF_A_KIND;
 import static com.rentalcars.dojonorth.tdd.poker.Set.PAIR;
 import static com.rentalcars.dojonorth.tdd.poker.Set.THREE_OF_A_KIND;
 
@@ -52,9 +53,13 @@ public class Hand {
             if ((Integer) handMap.get(type) == 2) {
                 hands.add(PAIR);
             }
+            if ((Integer) handMap.get(type) == 4) {
+                hands.add(FOUR_OF_A_KIND);
+            }
             if ((Integer) handMap.get(type) == 3) {
                 hands.add(THREE_OF_A_KIND);
             }
+
         }
         return hands;
     }
