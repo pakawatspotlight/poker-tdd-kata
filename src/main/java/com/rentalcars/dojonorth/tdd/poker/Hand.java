@@ -10,31 +10,31 @@ import static com.rentalcars.dojonorth.tdd.poker.Set.Type.*;
  * Created by jamesmurphy on 12/05/2016.
  */
 public class Hand {
-    private List<String> cards = new ArrayList<String>();
+    private List<Card> cards = new ArrayList<Card>();
 
     private Hands hands;
 
-    public Hand(final List<String> cards) {
+    public Hand(final List<Card> cards) {
         hands = new Hands();
         this.cards = cards;
     }
 
-    public List<String> getCards() {
+    public List<Card> getCards() {
         return cards;
     }
 
     public Set evaluateBestHand() {
-        Map<String, ArrayList<String>> handMap = mapOfHand();
+        Map<Card.Type, ArrayList<Card>> handMap = mapOfHand();
         java.util.Set<Set> potentialHands = hands.evaluateSets(handMap);
         return evaluateBestHand(potentialHands);
     }
 
-    private Map<String, ArrayList<String>> mapOfHand() {
+    private Map<Card.Type, ArrayList<Card>> mapOfHand() {
         Map handMap = new HashMap<String, Integer>();
-        for (String card : cards) {
-            String type = card.substring(0, 1);
+        for (Card card : cards) {
+            Card.Type type = card.getType();
             if (handMap.containsKey(type)) {
-                final List<String> cardsForType = new ArrayList<String>((List<String>) handMap.get(type));
+                final List<Card> cardsForType = new ArrayList<Card>((List<Card>) handMap.get(type));
                 cardsForType.add(card);
                 handMap.put(type, cardsForType);
             } else {

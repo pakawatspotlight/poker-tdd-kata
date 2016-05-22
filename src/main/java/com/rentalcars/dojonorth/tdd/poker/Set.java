@@ -4,15 +4,15 @@ import java.util.List;
 
 public class Set {
 
-    private List<String> cards;
+    private List<Card> cards;
     private Type type;
 
-    public Set(Type type, List<String> cards) {
+    public Set(Type type, List<Card> cards) {
         this.type = type;
         this.cards = cards;
     }
 
-    public List<String> getCards() {
+    public List<Card> getCards() {
         return cards;
     }
 

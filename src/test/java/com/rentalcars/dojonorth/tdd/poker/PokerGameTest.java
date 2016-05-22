@@ -4,6 +4,8 @@ import org.junit.Test;
 
 import java.util.Arrays;
 
+import static com.rentalcars.dojonorth.tdd.poker.Card.Suit.*;
+import static com.rentalcars.dojonorth.tdd.poker.Card.Type.*;
 import static com.rentalcars.dojonorth.tdd.poker.Set.Type.*;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
@@ -12,25 +14,45 @@ public class PokerGameTest {
 
     @Test
     public void aPair() throws Exception {
-        Hand hand = new Hand(Arrays.asList("2H", "2D", "3H", "4H", "5S"));
+        Hand hand = new Hand(Arrays.asList(
+                new Card(TWO, HEART),
+                new Card(TWO, DIAMOND),
+                new Card(THREE, HEART),
+                new Card(FOUR, HEART),
+                new Card(FIVE, SPADES)));
         assertThat(hand.evaluateBestHand().getType(), is(PAIR));
     }
     
     @Test
     public void threeOfAKind() throws Exception {
-        Hand hand = new Hand(Arrays.asList("2H", "2D", "2C", "3D", "4H"));
+        Hand hand = new Hand(Arrays.asList(
+                new Card(TWO, HEART),
+                new Card(TWO, DIAMOND),
+                new Card(TWO, CLUBS),
+                new Card(THREE, DIAMOND),
+                new Card(FOUR, HEART)));
         assertThat(hand.evaluateBestHand().getType(), is(THREE_OF_A_KIND));
     }
 
     @Test
     public void fourOfAKind() throws Exception {
-        Hand hand = new Hand(Arrays.asList("KH", "KS", "KC", "KD", "QS"));
+        Hand hand = new Hand(Arrays.asList(
+                new Card(KING, HEART),
+                new Card(KING, SPADES),
+                new Card(KING, CLUBS),
+                new Card(KING, DIAMOND),
+                new Card(QUEEN, SPADES)));
         assertThat(hand.evaluateBestHand().getType(), is(FOUR_OF_A_KIND));
     }
 
     @Test
     public void fullHouse() throws Exception {
-        Hand hand = new Hand(Arrays.asList("KH", "KS", "KC", "JH", "JD"));
+        Hand hand = new Hand(Arrays.asList(
+                new Card(KING, HEART),
+                new Card(KING, SPADES),
+                new Card(KING, CLUBS),
+                new Card(JACK, HEART),
+                new Card(JACK, DIAMOND)));
         assertThat(hand.evaluateBestHand().getType(), is(FULL_HOUSE));
     }
 
@@ -38,8 +60,8 @@ public class PokerGameTest {
 //    public void highCard() throws Exception {
 //        Hand hand = new Hand(Arrays.asList("2H", "4D", "6S", "7C", "JH"));
 //        Set bestHand = hand.evaluateBestHand();
-//        assertThat(bestHand, is(HIGH_CARD));
-//        Card bestCard = bestHand.getCards().get(0);
+//        assertThat(bestHand.getType(), is(HIGH_CARD));
+//        Card bestCard = bestHand.getCards().get(0).getType();
 //        assertEquals(bestCard.getType(), is());
 //    }
 }
