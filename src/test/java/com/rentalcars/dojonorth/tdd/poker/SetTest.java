@@ -1,7 +1,7 @@
 package com.rentalcars.dojonorth.tdd.poker;
 
-import static com.rentalcars.dojonorth.tdd.poker.Set.PAIR;
-import static com.rentalcars.dojonorth.tdd.poker.Set.THREE_OF_A_KIND;
+import static com.rentalcars.dojonorth.tdd.poker.Set.Type.PAIR;
+import static com.rentalcars.dojonorth.tdd.poker.Set.Type.THREE_OF_A_KIND;
 import static org.junit.Assert.assertFalse;
 
 import org.junit.Test;

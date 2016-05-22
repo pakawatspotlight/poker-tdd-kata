@@ -1,10 +1,10 @@
 package com.rentalcars.dojonorth.tdd.poker;
 
+import com.rentalcars.dojonorth.tdd.poker.Set.Type;
+
 import java.util.*;
 
-import static com.rentalcars.dojonorth.tdd.poker.Set.FOUR_OF_A_KIND;
-import static com.rentalcars.dojonorth.tdd.poker.Set.PAIR;
-import static com.rentalcars.dojonorth.tdd.poker.Set.THREE_OF_A_KIND;
+import static com.rentalcars.dojonorth.tdd.poker.Set.Type.*;
 
 /**
  * Created by jamesmurphy on 12/05/2016.
@@ -19,47 +19,53 @@ public class Hand {
         this.cards = cards;
     }
 
+    public List<String> getCards() {
+        return cards;
+    }
+
     public Set evaluateBestHand() {
-        Map handMap = mapOfHand();
+        Map<String, ArrayList<String>> handMap = mapOfHand();
         java.util.Set<Set> potentialHands = hands.evaluateSets(handMap);
         return evaluateBestHand(potentialHands);
     }
 
-    private Map mapOfHand() {
+    private Map<String, ArrayList<String>> mapOfHand() {
         Map handMap = new HashMap<String, Integer>();
         for (String card : cards) {
             String type = card.substring(0, 1);
-            Integer currentTypeCount = (Integer) handMap.get(type);
-            if (currentTypeCount == null) {
-                currentTypeCount = 0;
+            if (handMap.containsKey(type)) {
+                final List<String> cardsForType = new ArrayList<String>((List<String>) handMap.get(type));
+                cardsForType.add(card);
+                handMap.put(type, cardsForType);
+            } else {
+                handMap.put(type, Arrays.asList(card));
             }
-            currentTypeCount = currentTypeCount + 1;
-            handMap.put(type, currentTypeCount);
         }
         return handMap;
     }
 
     private Set evaluateBestHand(final java.util.Set<Set> hands) {
         Iterator<Set> handsIter = hands.iterator();
-        Set bestHand = Set.NOTHING;
+        Type bestHandType = HIGH_CARD;
 
         boolean handHasPair = false,
                 handHasThreeOfAKind = false;
         while (handsIter.hasNext()) {
             Set currentHand = handsIter.next();
-            bestHand = currentHand;
-            if (currentHand.equals(PAIR)) {
+            bestHandType = currentHand.getType();
+            if (currentHand.getType().equals(PAIR)) {
                 handHasPair = true;
-            } else if (currentHand.equals(THREE_OF_A_KIND)) {
+            } else if (currentHand.getType().equals(THREE_OF_A_KIND)) {
                 handHasThreeOfAKind = true;
             }
         }
 
         if (handHasPair && handHasThreeOfAKind) {
-            return Set.FULL_HOUSE;
+            return new Set(FULL_HOUSE, cards);
         }
 
-        return bestHand;
+
+        return new Set(bestHandType, cards);
     }
 }
 
