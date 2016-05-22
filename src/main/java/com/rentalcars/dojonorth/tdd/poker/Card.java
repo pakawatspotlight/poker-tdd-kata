@@ -17,6 +17,10 @@ public class Card {
         return type;
     }
 
+    public Suit getSuit() {
+        return suit;
+    }
+
     enum Type {
         ONE(1),
         TWO(2),
@@ -37,6 +41,15 @@ public class Card {
 
         Type(Integer priority) {
             this.priority = priority;
+        }
+
+        public boolean isHigherPriority(Card card) {
+            if (card == null) {
+                return true;
+            } else if (this.priority > card.type.priority) {
+                return true;
+            }
+            return false;
         }
     }
 

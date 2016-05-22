@@ -8,6 +8,7 @@ import static com.rentalcars.dojonorth.tdd.poker.Card.Suit.*;
 import static com.rentalcars.dojonorth.tdd.poker.Card.Type.*;
 import static com.rentalcars.dojonorth.tdd.poker.Set.Type.*;
 import static org.hamcrest.Matchers.is;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 
 public class PokerGameTest {
@@ -56,12 +57,18 @@ public class PokerGameTest {
         assertThat(hand.evaluateBestHand().getType(), is(FULL_HOUSE));
     }
 
-//    @Test
-//    public void highCard() throws Exception {
-//        Hand hand = new Hand(Arrays.asList("2H", "4D", "6S", "7C", "JH"));
-//        Set bestHand = hand.evaluateBestHand();
-//        assertThat(bestHand.getType(), is(HIGH_CARD));
-//        Card bestCard = bestHand.getCards().get(0).getType();
-//        assertEquals(bestCard.getType(), is());
-//    }
+    @Test
+    public void highCard() throws Exception {
+        Hand hand = new Hand(Arrays.asList(
+                new Card(TWO, HEART),
+                new Card(FOUR, DIAMOND),
+                new Card(SIX, SPADES),
+                new Card(SEVEN, CLUBS),
+                new Card(JACK, HEART)));
+        Set bestHand = hand.evaluateBestHand();
+        assertThat(bestHand.getType(), is(HIGH_CARD));
+        Card bestCard = bestHand.getCards().get(0);
+        assertThat(bestCard.getType(), is(JACK));
+        assertThat(bestCard.getSuit(), is(HEART));
+    }
 }

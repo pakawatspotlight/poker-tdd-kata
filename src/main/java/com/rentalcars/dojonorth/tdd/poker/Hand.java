@@ -24,12 +24,12 @@ public class Hand {
     }
 
     public Set evaluateBestHand() {
-        Map<Card.Type, ArrayList<Card>> handMap = mapOfHand();
+        Map<Card.Type, List<Card>> handMap = mapOfHand();
         java.util.Set<Set> potentialHands = hands.evaluateSets(handMap);
         return evaluateBestHand(potentialHands);
     }
 
-    private Map<Card.Type, ArrayList<Card>> mapOfHand() {
+    private Map<Card.Type, List<Card>> mapOfHand() {
         Map handMap = new HashMap<String, Integer>();
         for (Card card : cards) {
             Card.Type type = card.getType();
@@ -49,23 +49,45 @@ public class Hand {
         Type bestHandType = HIGH_CARD;
 
         boolean handHasPair = false,
-                handHasThreeOfAKind = false;
+                handHasThreeOfAKind = false,
+                handHasFourOfAKind = false;
         while (handsIter.hasNext()) {
             Set currentHand = handsIter.next();
-            bestHandType = currentHand.getType();
             if (currentHand.getType().equals(PAIR)) {
                 handHasPair = true;
+                bestHandType = PAIR;
             } else if (currentHand.getType().equals(THREE_OF_A_KIND)) {
                 handHasThreeOfAKind = true;
+                bestHandType = THREE_OF_A_KIND;
+            } else if (currentHand.getType().equals(FOUR_OF_A_KIND)) {
+                handHasFourOfAKind = true;
+                bestHandType = FOUR_OF_A_KIND;
             }
         }
 
-        if (handHasPair && handHasThreeOfAKind) {
+        if (isFullHouse(handHasPair, handHasThreeOfAKind)) {
             return new Set(FULL_HOUSE, cards);
         }
 
+        if (!(handHasPair || handHasThreeOfAKind || handHasFourOfAKind)) {
+            Iterator<Set> highCardIter = hands.iterator();
+            Card highCard = null;
+            while (highCardIter.hasNext()) {
+                Set currentHighCardSet = highCardIter.next();
+                for (Card card: cards) {
+                    if (card.getType().isHigherPriority(highCard)) {
+                        highCard = card;
+                    }
+                }
+                return new Set(HIGH_CARD, Arrays.asList(highCard));
+            }
+        }
 
         return new Set(bestHandType, cards);
+    }
+
+    private boolean isFullHouse(boolean handHasPair, boolean handHasThreeOfAKind) {
+        return handHasPair && handHasThreeOfAKind;
     }
 }
 
