@@ -62,9 +62,9 @@ public class PokerGameTest {
         Hand hand = new Hand(Arrays.asList(
                 new Card(TWO, HEART),
                 new Card(FOUR, DIAMOND),
+                new Card(JACK, HEART),
                 new Card(SIX, SPADES),
-                new Card(SEVEN, CLUBS),
-                new Card(JACK, HEART)));
+                new Card(SEVEN, CLUBS)));
         Set bestHand = hand.evaluateBestHand();
         assertThat(bestHand.getType(), is(HIGH_CARD));
         Card bestCard = bestHand.getCards().get(0);
