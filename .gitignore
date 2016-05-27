@@ -1,2 +1,6 @@
 .idea
 poker-tdd-kata.iml
+target
+.DS_Store
+javascript/.DS_Store
+javascript/bower_components
