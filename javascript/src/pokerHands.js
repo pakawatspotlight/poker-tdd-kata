@@ -1,5 +1,18 @@
 const { PokerHandEvaluator } = require("./pokerHandEvaluator");
-const { getCardValue, getCardText} = require("./utils");
+const { getCardValue, getCardText } = require("./utils");
+
+const cardText = [
+  "high card",
+  "pair",
+  "two pairs",
+  "three of a kind",
+  "straight",
+  "flush",
+  "full house",
+  "four of a kind",
+  "straight flush",
+];
+
 class PokerHands {
   constructor(black, white) {
     this._black = black;
@@ -22,16 +35,19 @@ class PokerHands {
     if (blackScore.rank === whiteScore.rank) {
       if (blackValue === whiteValue) {
         return "Tie";
-      }
-      else if (blackValue < whiteValue) {
-        return "White wins. - with high card" + ": " + getCardText(whiteScore.value);
+      } else if (blackValue < whiteValue) {
+        return (
+          "White wins. - with " + cardText[whiteScore.rank] + ": " + getCardText(whiteScore.value)
+        );
       } else {
-        return "Black wins. - with high card" + ": " + getCardText(blackScore.value);
+        return (
+          "Black wins. - with " + cardText[blackScore.rank] + ": " + getCardText(blackScore.value)
+        );
       }
     } else if (blackScore.rank < whiteScore.rank) {
-      return "White wins. - with flush";
+      return "White wins. - with " + cardText[whiteScore.rank];
     } else {
-      return "Black wins. - with full house";
+      return "Black wins. - with " + cardText[blackScore.rank];
     }
   }
 }
