@@ -1,13 +1,13 @@
 class PokerHandEvaluator {
   evaluate(playerHand) {
-    const cards = playerHand.split(" ");
-    const mapper = this.getCardText();
-    const highCard = mapper[cards[4][0]];
+    let cards = playerHand.split(" ");
+    cards = cards.sort();
+    const highCard = this.getCardText(cards[4][0]);
     return "high card: " + highCard;
   }
 
-  getCardText() {
-    return {
+  getCardText(card) {
+    const mapper = {
       "2": "2",
       "3": "3",
       "4": "4",
@@ -23,6 +23,7 @@ class PokerHandEvaluator {
       K: "King",
       A: "Ace",
     };
+    return mapper[card];
   }
 }
 

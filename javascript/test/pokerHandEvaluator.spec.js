@@ -28,5 +28,14 @@ describe("PokerHandEvaluator", () => {
 
       expect(result).toBe("high card: Jack");
     });
+
+    it("should return High card: Jack", () => {
+      const playerHand = "2C 3H 4S JH 8C";
+      const pokerHandEvaluator = new PokerHandEvaluator();
+
+      const result = pokerHandEvaluator.evaluate(playerHand);
+
+      expect(result).toBe("high card: Jack");
+    });
   });
 });
