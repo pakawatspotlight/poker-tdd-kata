@@ -1,15 +1,7 @@
-const { Card } = require("./Card");
-const { getCardValue, getCardText } = require("./utils");
+const { PokerHandRankEnum } = require("./PokerHandRankEnum");
 
-const STRAIGHT_FLUSH = "straight flush: ";
-const FOUR_OF_A_KIND = "four of a kind: ";
-const FULL_HOUSE = "Full House: ";
-const FLUSH = "flush: ";
-const STRAIGHT = "straight: ";
-const THREE_OF_A_KIND = "three of a kind: ";
-const TWO_PAIRS = "two pairs: ";
-const PAIR = "pair: ";
-const HIGH_CARD = "high card: ";
+const { Card } = require("./Card");
+const { getCardValue } = require("./utils");
 
 class PokerHandEvaluator {
   evaluate(playerHand) {
@@ -17,53 +9,80 @@ class PokerHandEvaluator {
     // Straight Flush
     const indexStraightFlush = this.getIndexOfStraightFlush();
     if (indexStraightFlush !== null) {
-      return STRAIGHT_FLUSH + getCardText(this.cards[indexStraightFlush].value);
+      return {
+        rank: PokerHandRankEnum.STRAIGHT_FLUSH,
+        value: this.cards[indexStraightFlush].value,
+      };
     }
 
     // Four of a kinds
     const indexFourOfKind = this.getIndexOfFourOfAKind();
     if (indexFourOfKind !== null) {
-      return FOUR_OF_A_KIND + getCardText(this.cards[indexFourOfKind].value);
+      return {
+        rank: PokerHandRankEnum.FOUR_OF_A_KIND,
+        value: this.cards[indexFourOfKind].value,
+      };
     }
 
     // FullHouse
     const indexFullHouse = this.getIndexOfFullHouse();
     if (indexFullHouse !== null) {
-      return FULL_HOUSE + getCardText(this.cards[indexFullHouse].value);
+      return {
+        rank: PokerHandRankEnum.FULL_HOUSE,
+        value: this.cards[indexFullHouse].value,
+      };
     }
 
     // Flush
     const indexFlush = this.getIndexOfFlush();
     if (indexFlush !== null) {
-      return FLUSH + getCardText(this.cards[indexFlush].value);
+      return {
+        rank: PokerHandRankEnum.FLUSH,
+        value: this.cards[indexFlush].value,
+      };
     }
 
     // Straight
     const indexStraight = this.getIndexOfStraight();
     if (indexStraight !== null) {
-      return STRAIGHT + getCardText(this.cards[indexStraight].value);
+      return {
+        rank: PokerHandRankEnum.STRAIGHT,
+        value: this.cards[indexStraight].value,
+      };
     }
 
     // Three of a kind
-    const indexOfThreeKind = this.getIndexOfThreeOfAKind(0, this.cards.length - 2);
+    const indexOfThreeKind = this.getIndexOfThreeOfAKind(
+      0,
+      this.cards.length - 2
+    );
     if (indexOfThreeKind !== null) {
-      return THREE_OF_A_KIND + getCardText(this.cards[indexOfThreeKind].value);
+      return {
+        rank: PokerHandRankEnum.THREE_OF_A_KIND,
+        value: this.cards[indexOfThreeKind].value,
+      };
     }
 
     // Two Pair
     const indexOfTwoPair = this.getIndexOfTwoPairs();
     if (indexOfTwoPair != null) {
-      return TWO_PAIRS + getCardText(this.cards[indexOfTwoPair].value);
+      return {
+        rank: PokerHandRankEnum.TWO_PAIRS,
+        value: this.cards[indexOfTwoPair].value,
+      };
     }
 
     // Pair
     const indexOfPair = this.getIndexOfPairCards(0, this.cards.length - 1);
     if (indexOfPair != null) {
-      return PAIR + getCardText(this.cards[indexOfPair].value);
+      return {
+        rank: PokerHandRankEnum.PAIR,
+        value: this.cards[indexOfPair].value,
+      };
     }
 
     // HighCards
-    return HIGH_CARD + getCardText(this.cards[4].value);
+    return { rank: PokerHandRankEnum.HIGH_CARD, value: this.cards[4].value };
   }
 
   getIndexOfStraightFlush() {

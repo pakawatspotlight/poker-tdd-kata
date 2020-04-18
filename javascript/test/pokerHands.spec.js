@@ -21,6 +21,9 @@ describe("Poker hands", () => {
 
     const result = pokerHands.getWinner();
 
-    expect(result).toBe("White wins. - with high card: Ace")
+    expect(result).toBe("White wins. - with high card: Ace");
   });
 });
+
+//TODO: make POkerHandEvaluator return rank of card and it value
+// { rank (as enum), value: 'A' }

@@ -1,4 +1,5 @@
 const { PokerHandEvaluator } = require("../src/pokerHandEvaluator");
+const { PokerHandRankEnum } = require("../src/PokerHandRankEnum");
 
 describe("PokerHandEvaluator", () => {
   describe("High card", () => {
@@ -8,7 +9,7 @@ describe("PokerHandEvaluator", () => {
 
       const result = pokerHandEvaluator.evaluate(playerHand);
 
-      expect(result).toBe("high card: Ace");
+      expect(result).toEqual({ rank: PokerHandRankEnum.HIGH_CARD, value: "A" });
     });
 
     it("should return High card: 9", () => {
@@ -17,7 +18,7 @@ describe("PokerHandEvaluator", () => {
 
       const result = pokerHandEvaluator.evaluate(playerHand);
 
-      expect(result).toBe("high card: 9");
+      expect(result).toEqual({ rank: PokerHandRankEnum.HIGH_CARD, value: "9" });
     });
 
     it("should return High card: Jack", () => {
@@ -26,7 +27,7 @@ describe("PokerHandEvaluator", () => {
 
       const result = pokerHandEvaluator.evaluate(playerHand);
 
-      expect(result).toBe("high card: Jack");
+      expect(result).toEqual({ rank: PokerHandRankEnum.HIGH_CARD, value: "J" });
     });
 
     it("should return High card: Jack", () => {
@@ -35,7 +36,7 @@ describe("PokerHandEvaluator", () => {
 
       const result = pokerHandEvaluator.evaluate(playerHand);
 
-      expect(result).toBe("high card: Jack");
+      expect(result).toEqual({ rank: PokerHandRankEnum.HIGH_CARD, value: "J" });
     });
   });
 
@@ -46,7 +47,7 @@ describe("PokerHandEvaluator", () => {
 
       const result = pokerHandEvaluator.evaluate(playerHand);
 
-      expect(result).toBe("pair: 2");
+      expect(result).toEqual({ rank: PokerHandRankEnum.PAIR, value: "2" });
     });
 
     it("should return pair: 3", () => {
@@ -55,7 +56,7 @@ describe("PokerHandEvaluator", () => {
 
       const result = pokerHandEvaluator.evaluate(playerHand);
 
-      expect(result).toBe("pair: 3");
+      expect(result).toEqual({ rank: PokerHandRankEnum.PAIR, value: "3" });
     });
 
     it("should return pair: 4", () => {
@@ -64,7 +65,7 @@ describe("PokerHandEvaluator", () => {
 
       const result = pokerHandEvaluator.evaluate(playerHand);
 
-      expect(result).toBe("pair: 4");
+      expect(result).toEqual({ rank: PokerHandRankEnum.PAIR, value: "4" });
     });
 
     it("should return pair: 8", () => {
@@ -73,7 +74,7 @@ describe("PokerHandEvaluator", () => {
 
       const result = pokerHandEvaluator.evaluate(playerHand);
 
-      expect(result).toBe("pair: 8");
+      expect(result).toEqual({ rank: PokerHandRankEnum.PAIR, value: "8" });
     });
 
     it("should return pair: Ace", () => {
@@ -82,7 +83,7 @@ describe("PokerHandEvaluator", () => {
 
       const result = pokerHandEvaluator.evaluate(playerHand);
 
-      expect(result).toBe("pair: Ace");
+      expect(result).toEqual({ rank: PokerHandRankEnum.PAIR, value: "A" });
     });
   });
 
@@ -93,7 +94,7 @@ describe("PokerHandEvaluator", () => {
 
       const result = pokerHandEvaluator.evaluate(playerHand);
 
-      expect(result).toBe("three of a kind: 2");
+      expect(result).toEqual({ rank: PokerHandRankEnum.THREE_OF_A_KIND, value: "2" });
     });
 
     it("should return three of a kind: 8", () => {
@@ -102,7 +103,7 @@ describe("PokerHandEvaluator", () => {
 
       const result = pokerHandEvaluator.evaluate(playerHand);
 
-      expect(result).toBe("three of a kind: 8");
+      expect(result).toEqual({ rank: PokerHandRankEnum.THREE_OF_A_KIND, value: "8" });
     });
 
     it("should return three of a kind: 8", () => {
@@ -111,7 +112,7 @@ describe("PokerHandEvaluator", () => {
 
       const result = pokerHandEvaluator.evaluate(playerHand);
 
-      expect(result).toBe("three of a kind: 8");
+      expect(result).toEqual({ rank: PokerHandRankEnum.THREE_OF_A_KIND, value: "8" });
     });
   });
 
@@ -122,7 +123,7 @@ describe("PokerHandEvaluator", () => {
 
       const result = pokerHandEvaluator.evaluate(playerHand);
 
-      expect(result).toBe("four of a kind: 2");
+      expect(result).toEqual({ rank: PokerHandRankEnum.FOUR_OF_A_KIND, value: "2" });
     });
   });
 
@@ -133,7 +134,7 @@ describe("PokerHandEvaluator", () => {
 
       const result = pokerHandEvaluator.evaluate(playerHand);
 
-      expect(result).toBe("two pairs: 3");
+      expect(result).toEqual({ rank: PokerHandRankEnum.TWO_PAIRS, value: "3" });
     });
 
     it("should return Two pairs: Ace", () => {
@@ -142,7 +143,7 @@ describe("PokerHandEvaluator", () => {
 
       const result = pokerHandEvaluator.evaluate(playerHand);
 
-      expect(result).toBe("two pairs: Ace");
+      expect(result).toEqual({ rank: PokerHandRankEnum.TWO_PAIRS, value: "A" });
     });
   });
 
@@ -153,7 +154,7 @@ describe("PokerHandEvaluator", () => {
 
       const result = pokerHandEvaluator.evaluate(playerHand);
 
-      expect(result).toBe("straight: 6");
+      expect(result).toEqual({ rank: PokerHandRankEnum.STRAIGHT, value: "6" });
     });
 
     it("should return straight: Ace", () => {
@@ -162,7 +163,7 @@ describe("PokerHandEvaluator", () => {
 
       const result = pokerHandEvaluator.evaluate(playerHand);
 
-      expect(result).toBe("straight: Ace");
+      expect(result).toEqual({ rank: PokerHandRankEnum.STRAIGHT, value: "A" });
     });
   });
 
@@ -173,7 +174,7 @@ describe("PokerHandEvaluator", () => {
 
       const result = pokerHandEvaluator.evaluate(playerHand);
 
-      expect(result).toBe("flush: 7");
+      expect(result).toEqual({ rank: PokerHandRankEnum.FLUSH, value: "7" });
     });
     it("should return Flush: Ace", () => {
       const playerHand = "2C 3C 4C 5C AC";
@@ -181,7 +182,7 @@ describe("PokerHandEvaluator", () => {
 
       const result = pokerHandEvaluator.evaluate(playerHand);
 
-      expect(result).toBe("flush: Ace");
+      expect(result).toEqual({ rank: PokerHandRankEnum.FLUSH, value: "A" });
     });
   });
 
@@ -192,7 +193,7 @@ describe("PokerHandEvaluator", () => {
 
       const result = pokerHandEvaluator.evaluate(playerHand);
 
-      expect(result).toBe("Full House: 7");
+      expect(result).toEqual({ rank: PokerHandRankEnum.FULL_HOUSE, value: "7" });
     });
 
     it("should return Flush: 7", () => {
@@ -201,10 +202,9 @@ describe("PokerHandEvaluator", () => {
 
       const result = pokerHandEvaluator.evaluate(playerHand);
 
-      expect(result).toBe("Full House: 7");
+      expect(result).toEqual({ rank: PokerHandRankEnum.FULL_HOUSE, value: "7" });
     });
   });
-
 
   describe("Straight Flush", () => {
     it("should return straight flush: 6", () => {
@@ -213,7 +213,7 @@ describe("PokerHandEvaluator", () => {
 
       const result = pokerHandEvaluator.evaluate(playerHand);
 
-      expect(result).toBe("straight flush: 6");
+      expect(result).toEqual({ rank: PokerHandRankEnum.STRAIGHT_FLUSH, value: "6" });
     });
 
     it("should return straight flush: Ace", () => {
@@ -222,7 +222,7 @@ describe("PokerHandEvaluator", () => {
 
       const result = pokerHandEvaluator.evaluate(playerHand);
 
-      expect(result).toBe("straight flush: Ace");
+      expect(result).toEqual({ rank: PokerHandRankEnum.STRAIGHT_FLUSH, value: "A" });
     });
   });
 });
