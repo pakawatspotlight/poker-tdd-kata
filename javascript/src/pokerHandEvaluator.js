@@ -2,6 +2,11 @@ class PokerHandEvaluator {
   evaluate(playerHand) {
     let cards = playerHand.split(" ");
     cards = cards.sort();
+    for (let i = 0; i < cards.length - 1; i++) {
+      if (cards[i][0] === cards[i + 1][0]) {
+        return "pair: " + this.getCardText(cards[i][0]);
+      }
+    }
     const highCard = this.getCardText(cards[4][0]);
     return "high card: " + highCard;
   }

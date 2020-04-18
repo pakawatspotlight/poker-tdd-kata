@@ -38,4 +38,51 @@ describe("PokerHandEvaluator", () => {
       expect(result).toBe("high card: Jack");
     });
   });
+
+  describe("Pair", () => {
+    it("should return pair: 2", () => {
+      const playerHand = "2C 2H 4S 8C AH";
+      const pokerHandEvaluator = new PokerHandEvaluator();
+
+      const result = pokerHandEvaluator.evaluate(playerHand);
+
+      expect(result).toBe("pair: 2");
+    });
+
+    it("should return pair: 3", () => {
+      const playerHand = "3C 3H 4S 8C AH";
+      const pokerHandEvaluator = new PokerHandEvaluator();
+
+      const result = pokerHandEvaluator.evaluate(playerHand);
+
+      expect(result).toBe("pair: 3");
+    });
+
+    it("should return pair: 4", () => {
+      const playerHand = "3C 4H 4S 8C AH";
+      const pokerHandEvaluator = new PokerHandEvaluator();
+
+      const result = pokerHandEvaluator.evaluate(playerHand);
+
+      expect(result).toBe("pair: 4");
+    });
+
+    it("should return pair: 8", () => {
+      const playerHand = "3C 4H 8S 8C AH";
+      const pokerHandEvaluator = new PokerHandEvaluator();
+
+      const result = pokerHandEvaluator.evaluate(playerHand);
+
+      expect(result).toBe("pair: 8");
+    });
+
+    it("should return pair: Ace", () => {
+      const playerHand = "3C 4H 8S AC AH";
+      const pokerHandEvaluator = new PokerHandEvaluator();
+
+      const result = pokerHandEvaluator.evaluate(playerHand);
+
+      expect(result).toBe("pair: Ace");
+    });
+  });
 });
