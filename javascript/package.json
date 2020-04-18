@@ -1,0 +1,15 @@
+{
+  "name": "poker-hand-kata",
+  "version": "1.0.0",
+  "description": "practicing tdd",
+  "main": "index.js",
+  "repository": "https://github.com/pakawatspotlight/poker-tdd-kata",
+  "author": "Pakawat Anekwiroj",
+  "license": "MIT",
+  "scripts": {
+    "test:watch": "jest --watch"
+  },
+  "dependencies": {
+    "jest": "^25.3.0"
+  }
+}
