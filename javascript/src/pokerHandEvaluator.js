@@ -11,6 +11,8 @@ class PokerHandEvaluator {
       });
     this.cards = cards;
     // Straight Flush
+
+    // Four of a kinds
     for (let i = 0; i < cards.length - 3; i++) {
       if (
         cards[i].value === cards[i + 1].value &&
@@ -20,6 +22,7 @@ class PokerHandEvaluator {
         return "four of a kind: " + getCardText(cards[i].value);
       }
     }
+
     // FullHouse
     for (let index = 0; index < cards.length - 1; index++) {
       if (cards[index].suit !== cards[index + 1].suit) break;
@@ -28,6 +31,7 @@ class PokerHandEvaluator {
       }
     }
 
+    // Straight
     for (let index = 0; index < cards.length - 1; index++) {
       if (
         getCardValue(cards[index].value) + 1 !==
@@ -39,33 +43,47 @@ class PokerHandEvaluator {
       }
     }
 
-    for (let i = 0; i < cards.length - 2; i++) {
-      if (
-        cards[i].value === cards[i + 1].value &&
-        cards[i + 1].value === cards[i + 2].value
-      ) {
-        return "three of a kind: " + getCardText(cards[i].value);
-      }
+    // Three of a kind
+    const indexOfThreeKind = this.indexOfThreeOfAKind(0, cards.length - 2);
+    if (indexOfThreeKind !== null) {
+      return "three of a kind: " + getCardText(cards[indexOfThreeKind].value);
     }
+
     // Two Pair
-    const indexOf1stPair = this.indexOfPairCards(0, cards.length);
+    const indexOf1stPair = this.indexOfPairCards(0, cards.length - 1);
     if (indexOf1stPair != null) {
-      const indexOf2ndPair = this.indexOfPairCards(indexOf1stPair + 1, cards.length);
+      const indexOf2ndPair = this.indexOfPairCards(
+        indexOf1stPair + 1,
+        cards.length - 1
+      );
       if (indexOf2ndPair != null) {
         return "two pairs: " + getCardText(cards[indexOf2ndPair].value);
       }
     }
+
     // Pair
-    if (this.indexOfPairCards(0, cards.length) != null) {
-      const index = this.indexOfPairCards(0, cards.length);
+    if (this.indexOfPairCards(0, cards.length - 1) != null) {
+      const index = this.indexOfPairCards(0, cards.length - 1);
       return "pair: " + getCardText(this.cards[index].value);
     }
     const highCard = getCardText(cards[4].value);
     return "high card: " + highCard;
   }
 
+  indexOfThreeOfAKind(start, end) {
+    for (let i = start; i < end; i++) {
+      if (
+        this.cards[i].value === this.cards[i + 1].value &&
+        this.cards[i + 1].value === this.cards[i + 2].value
+      ) {
+        return i + 2;
+      }
+    }
+    return null;
+  }
+
   indexOfPairCards(start, end) {
-    for (let i = start; i < end - 1; i++) {
+    for (let i = start; i < end; i++) {
       if (this.cards[i].value === this.cards[i + 1].value) {
         return i + 1;
       }
