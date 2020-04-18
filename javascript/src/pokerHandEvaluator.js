@@ -76,6 +76,22 @@ class PokerHandEvaluator {
     }
 
     // Two Pair
+    const indexOfTwoPair = this.indexOfTwoPairs();
+    if (indexOfTwoPair != null) {
+      return TWO_PAIRS + getCardText(this.cards[indexOfTwoPair].value);
+    }
+
+    // Pair
+    const indexOfPair = this.indexOfPairCards(0, this.cards.length - 1);
+    if (indexOfPair != null) {
+      return PAIR + getCardText(this.cards[indexOfPair].value);
+    }
+
+    // HighCards
+    return HIGH_CARD + getCardText(this.cards[4].value);
+  }
+
+  indexOfTwoPairs() {
     const indexOf1stPair = this.indexOfPairCards(0, this.cards.length - 1);
     if (indexOf1stPair != null) {
       const indexOf2ndPair = this.indexOfPairCards(
@@ -83,18 +99,10 @@ class PokerHandEvaluator {
         this.cards.length - 1
       );
       if (indexOf2ndPair != null) {
-        return TWO_PAIRS + getCardText(this.cards[indexOf2ndPair].value);
+        return indexOf2ndPair;
       }
     }
-
-    // Pair
-    if (this.indexOfPairCards(0, this.cards.length - 1) != null) {
-      const index = this.indexOfPairCards(0, this.cards.length - 1);
-      return PAIR + getCardText(this.cards[index].value);
-    }
-
-    // HighCards
-    return HIGH_CARD + getCardText(this.cards[4].value);
+    return null
   }
 
   indexOfThreeOfAKind(start, end) {
