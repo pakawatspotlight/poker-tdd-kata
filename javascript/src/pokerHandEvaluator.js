@@ -27,46 +27,21 @@ class PokerHandEvaluator {
     }
 
     // FullHouse
-    const indexOfThreeKindForFH = this.indexOfThreeOfAKind(
-      0,
-      this.cards.length - 2
-    );
-    if (indexOfThreeKindForFH !== null) {
-      if (indexOfThreeKindForFH === 2) {
-        const indexOfPair = this.indexOfPairCards(3, this.cards.length - 1);
-        if (indexOfPair != null) {
-          return (
-            FULL_HOUSE + getCardText(this.cards[indexOfThreeKindForFH].value)
-          );
-        }
-      } else if (indexOfThreeKindForFH === 4) {
-        const indexOfPair = this.indexOfPairCards(0, 1);
-        if (indexOfPair != null) {
-          return (
-            FULL_HOUSE + getCardText(this.cards[indexOfThreeKindForFH].value)
-          );
-        }
-      }
+    const indexFullHouse = this.indexOfFullHouse();
+    if (indexFullHouse !== null) {
+      return FULL_HOUSE + getCardText(this.cards[indexFullHouse].value);
     }
 
     // Flush
-    for (let index = 0; index < this.cards.length - 1; index++) {
-      if (this.cards[index].suit !== this.cards[index + 1].suit) break;
-      if (index === this.cards.length - 2) {
-        return FLUSH + getCardText(this.cards[index + 1].value);
-      }
+    const indexFlush = this.indexOfFlush();
+    if (indexFlush !== null) {
+      return FLUSH + getCardText(this.cards[indexFlush].value);
     }
 
     // Straight
-    for (let index = 0; index < this.cards.length - 1; index++) {
-      if (
-        getCardValue(this.cards[index].value) + 1 !==
-        getCardValue(this.cards[index + 1].value)
-      )
-        break;
-      if (index === this.cards.length - 2) {
-        return STRAIGHT + getCardText(this.cards[index + 1].value);
-      }
+    const indexStraight = this.indexOfStraight();
+    if (indexStraight !== null) {
+      return STRAIGHT + getCardText(this.cards[indexStraight].value);
     }
 
     // Three of a kind
@@ -91,6 +66,57 @@ class PokerHandEvaluator {
     return HIGH_CARD + getCardText(this.cards[4].value);
   }
 
+  indexOfFullHouse() {
+    const indexOfThreeKindForFH = this.indexOfThreeOfAKind(
+      0,
+      this.cards.length - 2
+    );
+    if (indexOfThreeKindForFH !== null) {
+      if (indexOfThreeKindForFH === 2) {
+        const indexOfPair = this.indexOfPairCards(3, this.cards.length - 1);
+        if (indexOfPair != null) {
+          return (
+            indexOfThreeKindForFH
+          );
+        }
+      } else if (indexOfThreeKindForFH === 4) {
+        const indexOfPair = this.indexOfPairCards(0, 1);
+        if (indexOfPair != null) {
+          return (
+            indexOfThreeKindForFH
+          );
+        }
+      }
+    }
+    return null;
+  }
+
+  indexOfFlush() {
+    let index = 0;
+    for (; index < this.cards.length - 1; index++) {
+      if (this.cards[index].suit !== this.cards[index + 1].suit) break;
+    }
+    if (index === this.cards.length - 1) {
+      return index;
+    }
+    return null;
+  }
+
+  indexOfStraight() {
+    let index = 0;
+    for (; index < this.cards.length - 1; index++) {
+      if (
+        getCardValue(this.cards[index].value) + 1 !==
+        getCardValue(this.cards[index + 1].value)
+      )
+        break;
+    }
+    if (index === this.cards.length - 1) {
+      return index;
+    }
+    return null;
+  }
+
   indexOfTwoPairs() {
     const indexOf1stPair = this.indexOfPairCards(0, this.cards.length - 1);
     if (indexOf1stPair != null) {
@@ -102,7 +128,7 @@ class PokerHandEvaluator {
         return indexOf2ndPair;
       }
     }
-    return null
+    return null;
   }
 
   indexOfThreeOfAKind(start, end) {
