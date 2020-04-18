@@ -204,4 +204,25 @@ describe("PokerHandEvaluator", () => {
       expect(result).toBe("Full House: 7");
     });
   });
+
+
+  describe("Straight Flush", () => {
+    it("should return straight flush: 6", () => {
+      const playerHand = "2H 3H 4H 5H 6H";
+      const pokerHandEvaluator = new PokerHandEvaluator();
+
+      const result = pokerHandEvaluator.evaluate(playerHand);
+
+      expect(result).toBe("straight flush: 6");
+    });
+
+    it("should return straight flush: Ace", () => {
+      const playerHand = "TH JH QH KH AH";
+      const pokerHandEvaluator = new PokerHandEvaluator();
+
+      const result = pokerHandEvaluator.evaluate(playerHand);
+
+      expect(result).toBe("straight flush: Ace");
+    });
+  });
 });

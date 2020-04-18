@@ -1,6 +1,7 @@
 const { Card } = require("./Card");
 const { getCardValue, getCardText } = require("./utils");
 
+const STRAIGHT_FLUSH = "straight flush: ";
 const FOUR_OF_A_KIND = "four of a kind: ";
 const FULL_HOUSE = "Full House: ";
 const FLUSH = "flush: ";
@@ -14,6 +15,10 @@ class PokerHandEvaluator {
   evaluate(playerHand) {
     this.setCards(playerHand);
     // Straight Flush
+    const indexStraightFlush = this.indexOfStraightFlush();
+    if (indexStraightFlush !== null) {
+      return STRAIGHT_FLUSH + getCardText(this.cards[indexStraightFlush].value);
+    }
 
     // Four of a kinds
     const indexFourOfKind = this.indexOfFourOfAKind();
@@ -59,6 +64,15 @@ class PokerHandEvaluator {
 
     // HighCards
     return HIGH_CARD + getCardText(this.cards[4].value);
+  }
+
+  indexOfStraightFlush() {
+    const indexStraight = this.indexOfStraight();
+    const indexFlush = this.indexOfFlush();
+    if (indexStraight !== null && indexFlush !== null) {
+      return indexStraight;
+    }
+    return null;
   }
 
   indexOfFourOfAKind() {
