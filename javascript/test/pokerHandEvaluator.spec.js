@@ -116,4 +116,24 @@ describe("PokerHandEvaluator", () => {
       expect(result).toBe("four of a kind: 2");
     });
   });
+
+  describe("Two Pairs", () => {
+    it("should return Two pairs: 3", () => {
+      const playerHand = "2C 2H 3S 3D AH";
+      const pokerHandEvaluator = new PokerHandEvaluator();
+
+      const result = pokerHandEvaluator.evaluate(playerHand);
+
+      expect(result).toBe("two pairs: 3");
+    });
+
+    it("should return Two pairs: Ace", () => {
+      const playerHand = "2C 2H 3S AD AH";
+      const pokerHandEvaluator = new PokerHandEvaluator();
+
+      const result = pokerHandEvaluator.evaluate(playerHand);
+
+      expect(result).toBe("two pairs: Ace");
+    });
+  });
 });

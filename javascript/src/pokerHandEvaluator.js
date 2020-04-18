@@ -28,6 +28,15 @@ class PokerHandEvaluator {
     }
     for (let i = 0; i < cards.length - 1; i++) {
       if (cards[i].value === cards[i + 1].value) {
+        for (let j = i + 2; j < cards.length - 1; j++) {
+          if (cards[j].value === cards[j + 1].value) {
+            return "two pairs: " + this.getCardText(cards[j].value);
+          }
+        }
+      }
+    }
+    for (let i = 0; i < cards.length - 1; i++) {
+      if (cards[i].value === cards[i + 1].value) {
         return "pair: " + this.getCardText(cards[i].value);
       }
     }
