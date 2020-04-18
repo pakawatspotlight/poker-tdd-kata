@@ -1,11 +1,5 @@
+const { Card } = require("./Card");
 const { getCardValue, getCardText } = require("./utils");
-
-class Card {
-  constructor(card) {
-    this.value = card[0];
-    this.suit = card[1];
-  }
-}
 
 class PokerHandEvaluator {
   evaluate(playerHand) {
