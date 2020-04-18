@@ -105,4 +105,15 @@ describe("PokerHandEvaluator", () => {
       expect(result).toBe("three of a kind: 8");
     });
   });
+
+  describe("Four of a Kind", () => {
+    it("should return Four of a kind: 2", () => {
+      const playerHand = "2C 2H 2S 2D AH";
+      const pokerHandEvaluator = new PokerHandEvaluator();
+
+      const result = pokerHandEvaluator.evaluate(playerHand);
+
+      expect(result).toBe("four of a kind: 2");
+    });
+  });
 });
