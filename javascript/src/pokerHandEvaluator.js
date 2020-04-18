@@ -9,6 +9,7 @@ class PokerHandEvaluator {
       .sort((a, b) => {
         return getCardValue(a.value) - getCardValue(b.value);
       });
+    this.cards = cards;
     // Straight Flush
     for (let i = 0; i < cards.length - 3; i++) {
       if (
@@ -20,8 +21,6 @@ class PokerHandEvaluator {
       }
     }
     // FullHouse
-    // Flush
-
     for (let index = 0; index < cards.length - 1; index++) {
       if (cards[index].suit !== cards[index + 1].suit) break;
       if (index === cards.length - 2) {
@@ -48,22 +47,30 @@ class PokerHandEvaluator {
         return "three of a kind: " + getCardText(cards[i].value);
       }
     }
-    for (let i = 0; i < cards.length - 1; i++) {
-      if (cards[i].value === cards[i + 1].value) {
-        for (let j = i + 2; j < cards.length - 1; j++) {
-          if (cards[j].value === cards[j + 1].value) {
-            return "two pairs: " + getCardText(cards[j].value);
-          }
-        }
+    // Two Pair
+    const indexOf1stPair = this.indexOfPairCards(0, cards.length);
+    if (indexOf1stPair != null) {
+      const indexOf2ndPair = this.indexOfPairCards(indexOf1stPair + 1, cards.length);
+      if (indexOf2ndPair != null) {
+        return "two pairs: " + getCardText(cards[indexOf2ndPair].value);
       }
     }
-    for (let i = 0; i < cards.length - 1; i++) {
-      if (cards[i].value === cards[i + 1].value) {
-        return "pair: " + getCardText(cards[i].value);
-      }
+    // Pair
+    if (this.indexOfPairCards(0, cards.length) != null) {
+      const index = this.indexOfPairCards(0, cards.length);
+      return "pair: " + getCardText(this.cards[index].value);
     }
     const highCard = getCardText(cards[4].value);
     return "high card: " + highCard;
+  }
+
+  indexOfPairCards(start, end) {
+    for (let i = start; i < end - 1; i++) {
+      if (this.cards[i].value === this.cards[i + 1].value) {
+        return i + 1;
+      }
+    }
+    return null;
   }
 }
 
