@@ -85,4 +85,24 @@ describe("PokerHandEvaluator", () => {
       expect(result).toBe("pair: Ace");
     });
   });
+
+  describe("Three of a Kind", () => {
+    it("should return three of a kind: 2", () => {
+      const playerHand = "2C 2H 2S 8C AH";
+      const pokerHandEvaluator = new PokerHandEvaluator();
+
+      const result = pokerHandEvaluator.evaluate(playerHand);
+
+      expect(result).toBe("three of a kind: 2");
+    });
+
+    it("should return three of a kind: 8", () => {
+      const playerHand = "2C 8H 8S 8C AH";
+      const pokerHandEvaluator = new PokerHandEvaluator();
+
+      const result = pokerHandEvaluator.evaluate(playerHand);
+
+      expect(result).toBe("three of a kind: 8");
+    });
+  });
 });
