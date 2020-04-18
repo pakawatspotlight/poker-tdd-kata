@@ -136,4 +136,24 @@ describe("PokerHandEvaluator", () => {
       expect(result).toBe("two pairs: Ace");
     });
   });
+
+  describe("Straight", () => {
+    it("should return straight: 6", () => {
+      const playerHand = "2C 3H 4S 5D 6H";
+      const pokerHandEvaluator = new PokerHandEvaluator();
+
+      const result = pokerHandEvaluator.evaluate(playerHand);
+
+      expect(result).toBe("straight: 6");
+    });
+
+    it("should return straight: Ace", () => {
+      const playerHand = "TC JH QS KD AH";
+      const pokerHandEvaluator = new PokerHandEvaluator();
+
+      const result = pokerHandEvaluator.evaluate(playerHand);
+
+      expect(result).toBe("straight: Ace");
+    });
+  });
 });
