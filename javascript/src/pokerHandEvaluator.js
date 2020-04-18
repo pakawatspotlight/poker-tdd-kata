@@ -9,6 +9,7 @@ class PokerHandEvaluator {
       .sort((a, b) => {
         return getCardValue(a.value) - getCardValue(b.value);
       });
+    // Straight Flush
     for (let i = 0; i < cards.length - 3; i++) {
       if (
         cards[i].value === cards[i + 1].value &&
@@ -18,8 +19,20 @@ class PokerHandEvaluator {
         return "four of a kind: " + getCardText(cards[i].value);
       }
     }
+    // FullHouse
+    // Flush
+
     let index = 0;
     console.log(cards);
+    for (; index < cards.length - 1; index++) {
+      if (cards[index].suit !== cards[index + 1].suit) break;
+    }
+    console.log(index);
+    if (index === cards.length - 1) {
+      return "flush: " + getCardText(cards[index].value);
+    }
+
+    // let index = 0;
     for (; index < cards.length - 1; index++) {
       if (
         getCardValue(cards[index].value) + 1 !==
@@ -27,7 +40,6 @@ class PokerHandEvaluator {
       )
         break;
     }
-    console.log(index);
     if (index === cards.length - 1) {
       return "straight: " + getCardText(cards[index].value);
     }

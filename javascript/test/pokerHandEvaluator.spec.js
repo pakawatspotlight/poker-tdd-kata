@@ -156,4 +156,23 @@ describe("PokerHandEvaluator", () => {
       expect(result).toBe("straight: Ace");
     });
   });
+
+  describe("Flush", () => {
+    it("should return Flush: 7", () => {
+      const playerHand = "2C 3C 4C 5C 7C";
+      const pokerHandEvaluator = new PokerHandEvaluator();
+
+      const result = pokerHandEvaluator.evaluate(playerHand);
+
+      expect(result).toBe("flush: 7");
+    });
+    it("should return Flush: Ace", () => {
+      const playerHand = "2C 3C 4C 5C AC";
+      const pokerHandEvaluator = new PokerHandEvaluator();
+
+      const result = pokerHandEvaluator.evaluate(playerHand);
+
+      expect(result).toBe("flush: Ace");
+    });
+  });
 });
