@@ -24,6 +24,23 @@ class PokerHandEvaluator {
     }
 
     // FullHouse
+    const indexOfThreeKindForFH = this.indexOfThreeOfAKind(0, cards.length - 2);
+    if (indexOfThreeKindForFH !== null) {
+      if (indexOfThreeKindForFH === 2) {
+        const indexOfPair = this.indexOfPairCards(3, cards.length - 1);
+        if (indexOfPair != null) {
+          return 'Full House: ' + getCardText(cards[indexOfThreeKindForFH].value);
+        }
+      }
+      else if (indexOfThreeKindForFH === 4) {
+        const indexOfPair = this.indexOfPairCards(0, 1);
+        if (indexOfPair != null) {
+          return 'Full House: ' + getCardText(cards[indexOfThreeKindForFH].value);
+        }
+      }
+    }
+
+    // Flush
     for (let index = 0; index < cards.length - 1; index++) {
       if (cards[index].suit !== cards[index + 1].suit) break;
       if (index === cards.length - 2) {

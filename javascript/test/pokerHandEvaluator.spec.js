@@ -104,6 +104,15 @@ describe("PokerHandEvaluator", () => {
 
       expect(result).toBe("three of a kind: 8");
     });
+
+    it("should return three of a kind: 8", () => {
+      const playerHand = "2C 3C 8H 8S 8C";
+      const pokerHandEvaluator = new PokerHandEvaluator();
+
+      const result = pokerHandEvaluator.evaluate(playerHand);
+
+      expect(result).toBe("three of a kind: 8");
+    });
   });
 
   describe("Four of a Kind", () => {
@@ -173,6 +182,26 @@ describe("PokerHandEvaluator", () => {
       const result = pokerHandEvaluator.evaluate(playerHand);
 
       expect(result).toBe("flush: Ace");
+    });
+  });
+
+  describe("Full House", () => {
+    it("should return Flush: 7", () => {
+      const playerHand = "2C 2D 7C 7C 7C";
+      const pokerHandEvaluator = new PokerHandEvaluator();
+
+      const result = pokerHandEvaluator.evaluate(playerHand);
+
+      expect(result).toBe("Full House: 7");
+    });
+
+    it("should return Flush: 7", () => {
+      const playerHand = "7C 7C 7C AC AD";
+      const pokerHandEvaluator = new PokerHandEvaluator();
+
+      const result = pokerHandEvaluator.evaluate(playerHand);
+
+      expect(result).toBe("Full House: 7");
     });
   });
 });
