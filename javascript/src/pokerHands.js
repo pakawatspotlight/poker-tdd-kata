@@ -3,9 +3,7 @@ const { rankText } = require("./rankText");
 const { getCardValue, getCardText } = require("./utils");
 
 class PokerHands {
-  constructor(black, white, pokerHandEvaluator) {
-    this._black = black;
-    this._white = white;
+  constructor(pokerHandEvaluator) {
     this.pokerHandEvaluator = pokerHandEvaluator;
   }
 
@@ -14,6 +12,14 @@ class PokerHands {
   }
   get white() {
     return this._white;
+  }
+
+  set black(black) {
+    this._black = black;
+  }
+
+  set white(white) {
+    this._white = white;
   }
 
   getWinner() {
