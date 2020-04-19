@@ -14,9 +14,10 @@ const cardText = [
 ];
 
 class PokerHands {
-  constructor(black, white) {
+  constructor(black, white, pokerHandEvaluator) {
     this._black = black;
     this._white = white;
+    this.pokerHandEvaluator = pokerHandEvaluator;
   }
 
   get black() {
@@ -27,8 +28,8 @@ class PokerHands {
   }
 
   getWinner() {
-    const blackScore = new PokerHandEvaluator().evaluate(this.black);
-    const whiteScore = new PokerHandEvaluator().evaluate(this.white);
+    const blackScore = this.pokerHandEvaluator.evaluate(this.black);
+    const whiteScore = this.pokerHandEvaluator.evaluate(this.white);
     const blackValue = getCardValue(blackScore.value);
     const whiteValue = getCardValue(whiteScore.value);
 
