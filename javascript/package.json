@@ -10,6 +10,7 @@
     "test:watch": "jest --watch"
   },
   "dependencies": {
-    "jest": "^25.3.0"
+    "jest": "^25.3.0",
+    "jest-when": "^2.7.1"
   }
 }
