@@ -52,7 +52,14 @@ describe("Poker hands", () => {
 
     expect(result).toBe("Black wins. - with full house");
   });
-});
 
-//TODO: make POkerHandEvaluator return rank of card and it value
-// { rank (as enum), value: 'A' }
+  it("should return White wins. - with full house", () => {
+    const black = "2S 8S AS QS 3S";
+    const white = "2H 4S 4C 2D 4H";
+    const pokerHands = new Pokerhands(black, white);
+
+    const result = pokerHands.getWinner();
+
+    expect(result).toBe("White wins. - with full house");
+  });
+});

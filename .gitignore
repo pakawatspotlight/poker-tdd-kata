@@ -6,3 +6,4 @@ javascript/.DS_Store
 javascript/bower_components
 
 javascript/node_modules
+javascript/coverage
